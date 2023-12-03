@@ -87,3 +87,11 @@ Setup
     sudo apt full-upgrade
 - Install Dependencies:
     sudo apt-get install python3-flask
+
+
+# Creating a virtual environment (optional)
+## Create a new environment using venv (this assumes you have python3 installed)
+### Navigate to desired directory to create/store new venv
+python3 -m venv venv-espinet
+### This creates a new controlled, isolated instance of python3 and its dependencies
+### You will need to activate the new venv and make it your currently active environment (runtime environment)

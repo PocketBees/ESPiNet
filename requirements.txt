@@ -1,0 +1,3 @@
+#Python Dependencies
+wheel
+RPi.GPIO==0.7.1
