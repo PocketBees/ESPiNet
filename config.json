@@ -1,0 +1,37 @@
+{
+    "servos": {
+        "pan": {
+            "safe_range": {
+                "min": 2.5,
+                "max": 12.5
+            },
+            "duty_cycle": 7.5
+        },
+        "tilt": {
+            "safe_range": {
+                "min": 3.0,
+                "max": 11.0
+            },
+            "duty_cycle": 7.0
+        }
+    },
+    "esp32": {
+        "ips": ["192.168.1.10", "192.168.1.11"],
+        "common_settings": {
+            // ... other settings ...
+        }
+    },
+    "flask": {
+        "debug": true,
+        "port": 5000
+        // ... other Flask settings ...
+    },
+    "sensors": {
+        // ... sensor configurations ...
+    },
+    "camera": {
+        "resolution": "1920x1080",
+        "framerate": 30
+        // ... other camera settings ...
+    }
+}
