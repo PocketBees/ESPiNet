@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Servo Control</title>
+</head>
+<body>
+    <h1>Servo Control Interface</h1>
+    <div>
+        <button onclick="moveServo('up')">Up</button>
+    </div>
+        <button onclick="moveServo('left')">Left</button>
+        <button onclick="moveServo('home')">Home</button>
+        <button onclick="moveServo('right')">Right</button>
+    </div>
+    <div>
+        <button onclick="moveServo('down')">Down</button>
+    </div>
+
+    <script>
+        function moveServo(direction) {
+            fetch(`/move/${direction}`).catch(console.error);
+        }
+    </script>
+</body>
+</html>

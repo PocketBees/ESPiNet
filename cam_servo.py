@@ -3,7 +3,7 @@ import RPi.GPIO as GPIO
 import time
 
 class Servo:
-    def __init__(self, pin, frequency=50, range_degrees=180):
+    def __init__(self, name, pin, frequency=50, range_degrees=180, hardware_pwm=True):
         """ 
         Eventually structure servo data into  a dict like this after parson the config.json with import json: 
         
@@ -29,21 +29,27 @@ class Servo:
                 }
             } 
         """
-        
         self.pin = pin
         self.frequency = frequency
         assert 0 <= range_degrees <= 360, "Range degrees must be between 0 and 360"
         self.range = range_degrees
-        GPIO.setmode(GPIO.BCM)
-        GPIO.setup(self.pin, GPIO.OUT)
         
-        self.pwm = GPIO.PWM(self.pin, self.frequency)
-        self.pwm.start(0)
+        
+        if hardware_pwm == True:
+            self.pwm = pigpio.pi()
+        else:
+            GPIO.setmode(GPIO.BCM)
+            GPIO.setup(self.pin, GPIO.OUT)
+            self.pwm = GPIO.PWM(self.pin, self.frequency)
+            self.pwm.start(0)
+            self.moveToCenters()
+
 
     def move_to(self, duty_cycle):
         self.pwm.ChangeDutyCycle(duty_cycle)
         time.sleep(0.5)
         self.pwm.ChangeDutyCycle(0)
+        print(f"D.Cycle:{duty_cycle}")
 
     def stop(self):
         self.pwm.ChangeDutyCycle(0)
@@ -52,8 +58,8 @@ class Servo:
     def change_frequency(self, freq):
         assert freq > 0, "Frequency must be greater than 0"
         self.frequency = freq
-        self.pwm.ChangeFrequency(freq)
-
+        self.pwm.ChangeFrequency(freq)   
+        
 class ServoDebugMode:
     def __init__(self, pan_pin, tilt_pin, frequency=50):
         self.servos = {
